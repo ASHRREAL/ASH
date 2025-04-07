@@ -1,856 +1,811 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
 :root {
-    /* Dark Theme (Default) */
-    --bg-color-dark: rgba(18, 18, 18, 0.95); /* Increased transparency */
-    --bg-color-dark-rgb: 18, 18, 18;
-    --surface-color-dark: rgba(30, 30, 30, 0.88); /* Increased transparency */
-    --surface-hover-dark: rgba(42, 42, 42, 0.90); /* Adjusted hover */
-    --primary-color-dark: #bb86fc; /* Purple accent */
-    --primary-color-dark-rgb: 187, 134, 252;
-    --primary-variant-dark: #3700b3; /* Darker Purple */
-    --primary-variant-dark-rgb: 55, 0, 179;
-    --secondary-color-dark: #03dac6; /* Teal accent */
-    --text-color-dark: #e0e0e0;
-    --text-color-dark-rgb: 224, 224, 224;
-    --text-on-primary-dark: #ffffff; /* Corrected - White text for dark hero */
-    --text-on-surface-dark: #ffffff;
-    --border-color-dark: #333;
-    --glow-color-dark: rgba(187, 134, 252, 0.3);
-    --shadow-color-dark: rgba(0, 0, 0, 0.2);
-    --shadow-hover-color-dark: rgba(0, 0, 0, 0.3);
-    --header-bg-dark: rgba(31, 31, 31, 0.88); /* Increased transparency */
-    --project-link-overlay-dark: linear-gradient(to bottom, rgba(5, 5, 5, 0.5), rgba(5, 5, 5, 0.8));
-    --project-text-initial-dark: #777;
-    --link-hover-color-dark: #d1c4e9; /* Lighter purple for dark mode hover */
-    --text-color-rgb: var(--text-color-dark-rgb);
-    --particle-color-dark: #ffffff;
-    --icon-hover-color-dark: var(--link-hover-color-dark); /* New: Use link hover for dark */
-
-    /* Light Theme - Adjusted */
-    --bg-color-light: rgba(248, 249, 250, 0.95);
-    --bg-color-light-rgb: 248, 249, 250;
-    --surface-color-light: rgba(255, 255, 255, 0.88); /* Increased transparency */
-    --surface-hover-light: rgba(241, 243, 245, 0.90); /* Adjusted hover */
-    --primary-color-light: #673ab7;
-    --primary-color-light-rgb: 103, 58, 183;
-    --primary-variant-light: #9575cd; /* Lighter purple for more gradient contrast */
-    --primary-variant-light-rgb: 149, 117, 205;
-    --secondary-color-light: #00796b;
-    --text-color-light: #343a40;
-    --text-color-light-rgb: 52, 58, 64;
-    --text-on-primary-light: #000000; /* NEW - Use white text */
-    --text-on-surface-light: #212529;
-    --border-color-light: #dee2e6;
-    --glow-color-light: rgba(103, 58, 183, 0.20); /* Increased opacity for visible effect */
-    --shadow-color-light: rgba(0, 0, 0, 0.08);
-    --shadow-hover-color-light: rgba(0, 0, 0, 0.12);
-    --header-bg-light: rgba(248, 249, 250, 0.88); /* Increased transparency */
-    --project-link-overlay-light: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(248, 249, 250, 0.2));
-    --project-text-initial-light: #495057;
-    --link-hover-color-light: var(--secondary-color-light); /* Use secondary teal for light mode hover */
-    --text-color-rgb: var(--text-color-light-rgb);
-    --particle-color-light: #000000; /* Black particles for light mode */
-    --icon-hover-color-light: var(--primary-color-light); /* New: Use primary for light */
-
-    /* Assign default theme */
-    --bg-color: var(--bg-color-dark);
-    --surface-color: var(--surface-color-dark);
-    --surface-hover: var(--surface-hover-dark);
-    --primary-color: var(--primary-color-dark);
-    --primary-variant: var(--primary-variant-dark);
-    --secondary-color: var(--secondary-color-dark);
-    --text-color: var(--text-color-dark);
-    --text-on-primary: var(--text-on-primary-dark);
-    --text-on-surface: var(--text-on-surface-dark);
-    --border-color: var(--border-color-dark);
-    --glow-color: var(--glow-color-dark);
-    --shadow-color: var(--shadow-color-dark);
-    --shadow-hover-color: var(--shadow-hover-color-dark);
-    --header-bg: var(--header-bg-dark);
-    --project-link-overlay: var(--project-link-overlay-dark);
-    --project-text-initial: var(--project-text-initial-dark);
-    --link-hover-color: var(--link-hover-color-dark);
-    --text-color-rgb: var(--text-color-dark-rgb);
-    --particle-color: var(--particle-color-dark); /* Default particle color */
-    --primary-color-rgb: var(--primary-color-dark-rgb);
-    --primary-variant-rgb: var(--primary-variant-dark-rgb);
-    --bg-color-rgb: var(--bg-color-dark-rgb);
-    --icon-hover-color: var(--icon-hover-color-dark); /* New: Assign default */
+--bg-color-dark: rgba(18, 18, 18, 0.95);
+--bg-color-dark-rgb: 18, 18, 18;
+--surface-color-dark: rgba(30, 30, 30, 0.88);
+--surface-hover-dark: rgba(42, 42, 42, 0.90);
+--primary-color-dark: #bb86fc;
+--primary-color-dark-rgb: 187, 134, 252;
+--primary-variant-dark: #3700b3;
+--primary-variant-dark-rgb: 55, 0, 179;
+--secondary-color-dark: #03dac6;
+--text-color-dark: #e0e0e0;
+--text-color-dark-rgb: 224, 224, 224;
+--text-on-primary-dark: #ffffff;
+--text-on-surface-dark: #ffffff;
+--border-color-dark: #333;
+--glow-color-dark: rgba(187, 134, 252, 0.3);
+--shadow-color-dark: rgba(0, 0, 0, 0.2);
+--shadow-hover-color-dark: rgba(0, 0, 0, 0.3);
+--header-bg-dark: rgba(31, 31, 31, 0.88);
+--project-link-overlay-dark: linear-gradient(to bottom, rgba(5, 5, 5, 0.5), rgba(5, 5, 5, 0.8));
+--project-text-initial-dark: #777;
+--link-hover-color-dark: #d1c4e9;
+--text-color-rgb: var(--text-color-dark-rgb);
+--particle-color-dark: #ffffff;
+--icon-hover-color-dark: var(--link-hover-color-dark);
+--bg-color-light: rgba(248, 249, 250, 0.95);
+--bg-color-light-rgb: 248, 249, 250;
+--surface-color-light: rgba(255, 255, 255, 0.88);
+--surface-hover-light: rgba(241, 243, 245, 0.90);
+--primary-color-light: #673ab7;
+--primary-color-light-rgb: 103, 58, 183;
+--primary-variant-light: #9575cd;
+--primary-variant-light-rgb: 149, 117, 205;
+--secondary-color-light: #00796b;
+--text-color-light: #343a40;
+--text-color-light-rgb: 52, 58, 64;
+--text-on-primary-light: #000000;
+--text-on-surface-light: #212529;
+--border-color-light: #dee2e6;
+--glow-color-light: rgba(103, 58, 183, 0.20);
+--shadow-color-light: rgba(0, 0, 0, 0.08);
+--shadow-hover-color-light: rgba(0, 0, 0, 0.12);
+--header-bg-light: rgba(248, 249, 250, 0.88);
+--project-link-overlay-light: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(248, 249, 250, 0.2));
+--project-text-initial-light: #495057;
+--link-hover-color-light: var(--secondary-color-light);
+--text-color-rgb: var(--text-color-light-rgb);
+--particle-color-light: #000000;
+--icon-hover-color-light: var(--primary-color-light);
+--transition-speed: 0.3s;
+--transition-speed-fast: 0.2s;
+--transition-speed-slow: 0.5s;
+--transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+--bg-color: var(--bg-color-dark);
+--surface-color: var(--surface-color-dark);
+--surface-hover: var(--surface-hover-dark);
+--primary-color: var(--primary-color-dark);
+--primary-variant: var(--primary-variant-dark);
+--secondary-color: var(--secondary-color-dark);
+--text-color: var(--text-color-dark);
+--text-on-primary: var(--text-on-primary-dark);
+--text-on-surface: var(--text-on-surface-dark);
+--border-color: var(--border-color-dark);
+--glow-color: var(--glow-color-dark);
+--shadow-color: var(--shadow-color-dark);
+--shadow-hover-color: var(--shadow-hover-color-dark);
+--header-bg: var(--header-bg-dark);
+--project-link-overlay: var(--project-link-overlay-dark);
+--project-text-initial: var(--project-text-initial-dark);
+--link-hover-color: var(--link-hover-color-dark);
+--text-color-rgb: var(--text-color-dark-rgb);
+--particle-color: var(--particle-color-dark);
+--primary-color-rgb: var(--primary-color-dark-rgb);
+--primary-variant-rgb: var(--primary-variant-dark-rgb);
+--bg-color-rgb: var(--bg-color-dark-rgb);
+--icon-hover-color: var(--icon-hover-color-dark);
 }
-
-/* Light Mode Overrides */
 html.light-mode {
-    --bg-color: var(--bg-color-light);
-    --surface-color: var(--surface-color-light);
-    --surface-hover: var(--surface-hover-light);
-    --primary-color: var(--primary-color-light);
-    --primary-variant: var(--primary-variant-light);
-    --secondary-color: var(--secondary-color-light);
-    --text-color: var(--text-color-light);
-    --text-on-primary: var(--text-on-primary-light);
-    --text-on-surface: var(--text-on-surface-light);
-    --border-color: var(--border-color-light);
-    --glow-color: var(--glow-color-light);
-    --shadow-color: var(--shadow-color-light);
-    --shadow-hover-color: var(--shadow-hover-color-light);
-    --header-bg: var(--header-bg-light);
-    --project-link-overlay: var(--project-link-overlay-light);
-    --project-text-initial: var(--project-text-initial-light);
-    --link-hover-color: var(--link-hover-color-light);
-    --text-color-rgb: var(--text-color-light-rgb);
-    --particle-color: var(--particle-color-light); /* Override particle color */
-    --primary-color-rgb: var(--primary-color-light-rgb);
-    --primary-variant-rgb: var(--primary-variant-light-rgb);
-    --bg-color-rgb: var(--bg-color-light-rgb);
-    --icon-hover-color: var(--icon-hover-color-light); /* New: Override for light */
+--bg-color: var(--bg-color-light);
+--surface-color: var(--surface-color-light);
+--surface-hover: var(--surface-hover-light);
+--primary-color: var(--primary-color-light);
+--primary-variant: var(--primary-variant-light);
+--secondary-color: var(--secondary-color-light);
+--text-color: var(--text-color-light);
+--text-on-primary: var(--text-on-primary-light);
+--text-on-surface: var(--text-on-surface-light);
+--border-color: var(--border-color-light);
+--glow-color: var(--glow-color-light);
+--shadow-color: var(--shadow-color-light);
+--shadow-hover-color: var(--shadow-hover-color-light);
+--header-bg: var(--header-bg-light);
+--project-link-overlay: var(--project-link-overlay-light);
+--project-text-initial: var(--project-text-initial-light);
+--link-hover-color: var(--link-hover-color-light);
+--text-color-rgb: var(--text-color-light-rgb);
+--particle-color: var(--particle-color-light);
+--primary-color-rgb: var(--primary-color-light-rgb);
+--primary-variant-rgb: var(--primary-variant-light-rgb);
+--bg-color-rgb: var(--bg-color-light-rgb);
+--icon-hover-color: var(--icon-hover-color-light);
 }
-
-/* General Styles */
 body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    font-size: 1rem; /* Base font size */
-    font-weight: 400; /* Base font weight */
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    opacity: 0;
-    animation: fadeInPage 0.3s ease-in-out forwards;
+font-family: 'Inter', sans-serif;
+margin: 0;
+padding: 0;
+background-color: var(--bg-color);
+color: var(--text-color);
+line-height: 1.6;
+font-size: 1rem;
+font-weight: 400;
+transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out;
+opacity: 0;
+animation: fadeInPage 0.3s ease-in-out forwards;
 }
-
 body.fade-out {
-    animation: fadeOutPage 0.3s ease-in-out forwards;
+animation: fadeOutPage 0.3s ease-in-out forwards;
 }
-
 h1, h2, h3 {
-    color: var(--text-on-surface);
-    margin-bottom: 0.5em;
-    transition: color 0.2s ease-in-out;
-    font-weight: 700; /* Bold for all headings */
+color: var(--text-on-surface);
+margin-bottom: 0.5em;
+transition: color var(--transition-speed) ease-in-out;
+font-weight: 700;
 }
-
 h1 {
-    font-size: 2.5rem; /* Size for H1 */
+font-size: 2.5rem;
 }
-
 h2 {
-    font-size: 2rem; /* Default size for H2 */
+font-size: 2rem;
 }
-
-/* Specific size for Hero H2 */
 #hero .hero-content h2 {
-    font-size: 3rem; 
-    /* font-weight: 700; Inherited */
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease-out 0.5s forwards;
-    color: inherit;
+font-size: 3rem;
+margin-bottom: 1rem;
+opacity: 0;
+animation: fadeInUp 1s ease-out 0.5s forwards;
+color: inherit;
 }
-
 h3 {
-    font-size: 1.25rem; /* Size for H3 (e.g., project titles) */
+font-size: 1.25rem;
 }
-
 a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+color: var(--primary-color);
+text-decoration: none;
+transition: color var(--transition-speed-fast) ease-in-out;
 }
-
 a:hover {
-    color: var(--link-hover-color);
+color: var(--link-hover-color);
 }
-
 img {
-    max-width: 100%;
-    height: auto;
+max-width: 100%;
+height: auto;
 }
-
-/* Header & Navigation - Update Layout */
 header {
-    background-color: var(--header-bg);
-    padding: 1rem 2rem;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    transition: background-color 0.2s ease-in-out;
+background-color: var(--header-bg);
+padding: 1rem 2rem;
+align-items: center;
+position: sticky;
+top: 0;
+z-index: 1000;
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+transition: background-color var(--transition-speed) ease-in-out;
 }
-
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
-
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    display: flex;
+display: flex;
+list-style: none;
+margin: 0;
+padding: 0;
 }
-
+.nav-left, .nav-right {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+.home-icon {
+color: var(--text-color);
+font-size: 1.4rem;
+padding: 0.5rem;
+border-radius: 50%;
+transition:
+color var(--transition-speed-fast) var(--transition-easing),
+transform var(--transition-speed-fast) var(--transition-easing),
+background-color var(--transition-speed-fast) var(--transition-easing);
+}
+.home-icon:hover {
+color: var(--primary-color);
+transform: scale(1.1);
+background-color: rgba(var(--primary-color-rgb), 0.1);
+}
 nav ul li {
-    margin-left: 2rem;
+margin-left: 2rem;
 }
-
 nav ul li a {
-    font-weight: 700; /* Use explicit bold weight */
-    font-size: 1rem; /* Align size with body text */
-    position: relative; 
-    padding-bottom: 5px; 
-    overflow: hidden; 
-    color: var(--text-color);
-    transition: color 0.3s ease; 
+font-weight: 700;
+font-size: 1rem;
+position: relative;
+padding-bottom: 5px;
+overflow: hidden;
+color: var(--text-color);
+transition: color var(--transition-speed-fast) ease;
 }
-
 nav ul li a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
-    transform: scaleX(0);
-    transform-origin: center; /* Underline expands from center */
-    /* Or use transform-origin: left; for left-to-right */
-    transition: transform 0.3s ease-out;
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: var(--primary-color);
+transform: scaleX(0);
+transform-origin: center;
+transition: transform var(--transition-speed-fast) ease-out;
 }
-
 nav ul li a:hover {
-    color: var(--primary-color); /* Optional: Change text color on hover too */
-    /* Existing color transition in base rule handles this */
+color: var(--primary-color);
 }
-
 nav ul li a:hover::after {
-    transform: scaleX(1);
+transform: scaleX(1);
 }
-
-/* Main Content Sections */
 main {
-    padding: 2rem;
+padding: 2rem;
 }
-
 section {
-    padding: 4rem 2rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    background-color: var(--surface-color);
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: transform 0.4s ease-out, opacity 0.5s ease-out, filter 0.5s ease-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+padding: 4rem 2rem;
+margin-bottom: 2rem;
+border-radius: 8px;
+background-color: var(--surface-color);
+box-shadow: 0 4px 15px var(--shadow-color);
+transition: transform var(--transition-speed-slow) ease-out, opacity var(--transition-speed-slow) ease-out, filter var(--transition-speed-slow) ease-out, background-color var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out;
 }
-
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px var(--glow-color);
+transform: translateY(-5px);
+box-shadow: 0 0 25px var(--glow-color);
 }
-
-/* Keyframes for Animations */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+from {
+opacity: 0;
+transform: translateY(20px);
 }
-
-/* Keyframes for Animated Pattern */
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
 @keyframes movePattern {
-  0% {
-    background-position: 0% 0%, 0% 0%, 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%, 50% 50%, -50% -50%;
-  }
+0% {
+background-position: 0% 0%, 0% 0%, 0% 0%;
 }
-
-/* Keyframes for Hero Background Animation */
+100% {
+background-position: 100% 100%, 50% 50%, -50% -50%;
+}
+}
 @keyframes subtleHeroShift {
-  0% {
-    background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
-  }
-  50% {
-    background-position: 100% 50%, 0% 50%, 50% 100%, 50% 0%;
-  }
-  100% {
-    background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
-  }
+0% {
+background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
 }
-
-/* Hero Section */
+50% {
+background-position: 100% 50%, 0% 50%, 50% 100%, 50% 0%;
+}
+100% {
+background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
+}
+}
 #hero {
-    text-align: center;
-    color: var(--text-on-primary);
-    position: relative;
-    overflow: hidden; 
-    padding: 6rem 2rem; 
-    min-height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background-color: transparent;
-    background-image: linear-gradient(135deg, 
-        rgba(var(--primary-variant-rgb), 0.25),
-        rgba(var(--primary-color-rgb), 0.35)
-    );
-    transition: background-image 0.2s ease-in-out;
+text-align: center;
+color: var(--text-on-primary);
+position: relative;
+overflow: hidden;
+padding: 6rem 2rem;
+min-height: 100px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: transparent;
+background-image: linear-gradient(135deg,
+rgba(var(--primary-variant-rgb), 0.25),
+rgba(var(--primary-color-rgb), 0.35)
+);
+transition: background-image var(--transition-speed) ease-in-out;
 }
-
-/* Ensure hero content still readable */
 #hero .hero-content {
-    position: relative; 
-    z-index: 2;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+position: relative;
+z-index: 2;
+text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-
 #hero .hero-content h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease-out 0.5s forwards;
-    color: inherit;
+font-size: 3rem;
+margin-bottom: 1rem;
+opacity: 0;
+animation: fadeInUp 1s ease-out 0.5s forwards;
+color: inherit;
 }
-
 #hero .hero-content p {
-    font-size: 1.3rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease-out 0.8s forwards;
-    color: inherit;
+font-size: 1.3rem;
+opacity: 0;
+animation: fadeInUp 1s ease-out 0.8s forwards;
+color: inherit;
 }
-
 #visual-effect-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Put back behind content */
-    /* pointer-events: none; Not needed when behind */
-    overflow: hidden;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1;
+overflow: hidden;
 }
-
 #visual-effect-container canvas {
-    display: block; /* Prevent potential extra space */
-    width: 100% !important; /* Force canvas to fill container */
-    height: 100% !important;
+display: block;
+width: 100% !important;
+height: 100% !important;
 }
-
-/* About Section */
 #about {
-    /* Specific styles if needed */
-    text-align: center; /* Center align text by default */
+text-align: center;
 }
-
-/* Projects Section */
 #projects h2 {
-    text-align: center;
-    margin-bottom: 2rem;
+text-align: center;
+margin-bottom: 2rem;
 }
-
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-    position: relative; /* Added for spinner positioning */
-    min-height: 100px; /* Added minimum height */
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin-top: 2rem;
+position: relative;
+min-height: 100px;
 }
-
-/* Define keyframes for particle movement */
 @keyframes particleMovement1 {
-  0% { background-position: 0% 0%; }
-  25% { background-position: 100% 100%; }
-  50% { background-position: 100% 0%; }
-  75% { background-position: 0% 100%; }
-  100% { background-position: 0% 0%; }
+0% { background-position: 0% 0%; }
+25% { background-position: 100% 100%; }
+50% { background-position: 100% 0%; }
+75% { background-position: 0% 100%; }
+100% { background-position: 0% 0%; }
 }
-
 @keyframes particleMovement2 {
-  0% { background-position: 100% 100%; }
-  33% { background-position: 0% 100%; }
-  66% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
+0% { background-position: 100% 100%; }
+33% { background-position: 0% 100%; }
+66% { background-position: 0% 0%; }
+100% { background-position: 100% 100%; }
 }
-
 @keyframes particleMovement3 {
-  0% { background-position: 50% 50%; }
-  25% { background-position: 30% 70%; }
-  50% { background-position: 70% 30%; }
-  75% { background-position: 40% 60%; }
-  100% { background-position: 50% 50%; }
+0% { background-position: 50% 50%; }
+25% { background-position: 30% 70%; }
+50% { background-position: 70% 30%; }
+75% { background-position: 40% 60%; }
+100% { background-position: 50% 50%; }
 }
-
-/* Add keyframes for idle animation that will work with custom properties */
 @keyframes subtleGridShift {
-  0% { 
-    --bg-offset-x: 0px;
-    --bg-offset-y: 0px;
-  }
-  33% {
-    --bg-offset-x: 2px; 
-    --bg-offset-y: -2px;
-  }
-  66% {
-    --bg-offset-x: -2px;
-    --bg-offset-y: 2px;
-  }
-  100% {
-    --bg-offset-x: 0px;
-    --bg-offset-y: 0px;
-  }
+0% {
+--bg-offset-x: 0px;
+--bg-offset-y: 0px;
 }
-
-/* NEW Project Item Styling */
+33% {
+--bg-offset-x: 2px;
+--bg-offset-y: -2px;
+}
+66% {
+--bg-offset-x: -2px;
+--bg-offset-y: 2px;
+}
+100% {
+--bg-offset-x: 0px;
+--bg-offset-y: 0px;
+}
+}
 .project-item {
-    position: relative;
-    height: 250px;
-    border-radius: 8px;
-    overflow: hidden; /* Keep overflow hidden */
-    background-color: var(--bg-color); /* Use main bg for base */
-    box-shadow: 0 4px 10px var(--shadow-color);
-    /* Custom properties for background parallax */
-    --bg-offset-x: 0px;
-    --bg-offset-y: 0px;
-    /* Removed --mouse-x and --mouse-y */
-    /* Removed subtle animation from main item */
-    /* Add relevant transitions */
-    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s ease-in-out;
+position: relative;
+height: 250px;
+border-radius: 8px;
+overflow: hidden;
+background-color: var(--bg-color);
+box-shadow: 0 4px 10px var(--shadow-color);
+--bg-offset-x: 0px;
+--bg-offset-y: 0px;
+transition: transform var(--transition-speed-fast) var(--transition-easing),
+box-shadow var(--transition-speed-fast) var(--transition-easing);
+transform-style: preserve-3d;
+perspective: 1000px;
+will-change: transform, box-shadow;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
 }
-
-/* Add new keyframes for blocky grid animation */
 @keyframes blockShift {
-  0% { background-position: 0px 0px; }
-  100% { background-position: 50px 50px; }
+0% { background-position: 0px 0px; }
+100% { background-position: 50px 50px; }
 }
-
-/* Update the project-item::before background - Static Grid */
 .project-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    /* New static grid background */
-    background-image:
-        linear-gradient(to right, rgba(var(--primary-color-rgb, 187, 134, 252), 0.1) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(var(--primary-color-rgb, 187, 134, 252), 0.1) 1px, transparent 1px),
-        linear-gradient(to right, rgba(var(--primary-color-rgb, 187, 134, 252), 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(var(--primary-color-rgb, 187, 134, 252), 0.05) 1px, transparent 1px);
-    background-size:
-        20px 20px, /* Main grid */
-        20px 20px,
-        40px 40px, /* Secondary grid */
-        40px 40px;
-    background-blend-mode: screen; /* Or multiply for light mode? Keep screen for now */
-    /* Use custom properties for mouse parallax positioning */
-    background-position:
-        calc(0% + var(--bg-offset-x) * 1.0) calc(0% + var(--bg-offset-y) * 1.0),
-        calc(0% + var(--bg-offset-x) * 1.0) calc(0% + var(--bg-offset-y) * 1.0),
-        calc(5px + var(--bg-offset-x) * 0.5) calc(5px + var(--bg-offset-y) * 0.5), /* Offset secondary grid slightly */
-        calc(5px + var(--bg-offset-x) * 0.5) calc(5px + var(--bg-offset-y) * 0.5);
-    /* REMOVE flowing animation */
-    /* animation: flowEffect 15s linear infinite; */
-    transition: background-position 0.1s linear; /* Keep transition for smooth mouse follow */
-    opacity: 0.6; /* Adjust base opacity */
-    filter: brightness(0.9);
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+background-image:
+radial-gradient(circle at 20% 30%, rgba(var(--primary-color-rgb), 0.15) 0%, transparent 50%),
+radial-gradient(circle at 80% 70%, rgba(var(--primary-variant-rgb), 0.1) 0%, transparent 50%),
+linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.05) 25%, transparent 25%,
+transparent 50%, rgba(var(--primary-color-rgb), 0.05) 50%,
+rgba(var(--primary-color-rgb), 0.05) 75%, transparent 75%, transparent),
+linear-gradient(to right, rgba(var(--primary-color-rgb), 0.1) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(var(--primary-color-rgb), 0.1) 1px, transparent 1px);
+background-size:
+100% 100%,
+100% 100%,
+30px 30px,
+20px 20px,
+20px 20px;
+background-blend-mode: screen;
+background-position:
+calc(var(--bg-offset-x) * -1px) calc(var(--bg-offset-y) * -1px),
+calc(var(--bg-offset-x) * 1px) calc(var(--bg-offset-y) * 1px),
+calc(var(--bg-offset-x) * 0.3px) calc(var(--bg-offset-y) * 0.3px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px);
+transition: background-position var(--transition-speed-fast) linear, opacity var(--transition-speed) ease-in-out;
+opacity: 0.5;
+filter: brightness(1.0) contrast(1.2);
+animation: gradientShift 8s infinite alternate ease-in-out;
 }
-
-/* Light Mode Overrides for Project Items - Static Grid */
+@keyframes gradientShift {
+0% {
+background-position:
+calc(var(--bg-offset-x) * -1px) calc(var(--bg-offset-y) * -1px),
+calc(var(--bg-offset-x) * 1px) calc(var(--bg-offset-y) * 1px),
+calc(var(--bg-offset-x) * 0.3px) calc(var(--bg-offset-y) * 0.3px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px);
+}
+100% {
+background-position:
+calc(var(--bg-offset-x) * -1px + 10px) calc(var(--bg-offset-y) * -1px - 10px),
+calc(var(--bg-offset-x) * 1px - 15px) calc(var(--bg-offset-y) * 1px + 15px),
+calc(var(--bg-offset-x) * 0.3px + 5px) calc(var(--bg-offset-y) * 0.3px - 5px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px),
+calc(var(--bg-offset-x) * 0.5px) calc(var(--bg-offset-y) * 0.5px);
+}
+}
 html.light-mode .project-item::before {
-    /* Re-apply the same grid structure but with light theme colors/blend */
-    background-image:
-        linear-gradient(to right, rgba(var(--primary-color-light-rgb), 0.15) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(var(--primary-color-light-rgb), 0.15) 1px, transparent 1px),
-        linear-gradient(to right, rgba(var(--primary-color-light-rgb), 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(var(--primary-color-light-rgb), 0.08) 1px, transparent 1px);
-    background-size:
-        20px 20px,
-        20px 20px,
-        40px 40px,
-        40px 40px;
-    background-blend-mode: multiply; /* Use multiply for light mode */
-    /* background-position uses same custom properties */
-    /* animation is removed */
-    opacity: 0.8; /* Adjust opacity for light mode */
-    filter: brightness(1.0);
+background-image:
+radial-gradient(circle at 20% 30%, rgba(var(--primary-color-light-rgb), 0.15) 0%, transparent 60%),
+radial-gradient(circle at 80% 70%, rgba(var(--primary-variant-light-rgb), 0.1) 0%, transparent 60%),
+linear-gradient(135deg, rgba(var(--primary-color-light-rgb), 0.08) 25%, transparent 25%,
+transparent 50%, rgba(var(--primary-color-light-rgb), 0.08) 50%,
+rgba(var(--primary-color-light-rgb), 0.08) 75%, transparent 75%, transparent),
+linear-gradient(to right, rgba(var(--primary-color-light-rgb), 0.15) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(var(--primary-color-light-rgb), 0.15) 1px, transparent 1px);
+background-size:
+100% 100%,
+100% 100%,
+30px 30px,
+20px 20px,
+20px 20px;
+background-blend-mode: multiply;
+opacity: 0.6;
+filter: brightness(1.0) contrast(1.1);
 }
-
-/* ----- REMOVE Project-Specific Background Variations ----- */
-
-/* --- DisCloud Variation --- */
-/* .project-item[data-project-id='discloud']::before { ... } */
-/* html.light-mode .project-item[data-project-id='discloud']::before { ... } */
-
-/* --- Walpy Variation (Example) --- */
-/* .project-item[data-project-id='walpy']::before { ... } */
-/* html.light-mode .project-item[data-project-id='walpy']::before { ... } */
-
-/* ----- End REMOVE Project-Specific Variations ----- */
-
-
-/* ----- Keep Fixed Gradient Examples (commented out for now) ---- */
-/*
-.project-item[data-project-id='project-one-slug']::before {
-    background-image:
-        linear-gradient(45deg, rgba(187, 134, 252, 0.05) 1px, transparent 1px),
-        linear-gradient(-45deg, rgba(187, 134, 252, 0.05) 1px, transparent 1px),
-        linear-gradient(45deg, rgba(187, 134, 252, 0.1) 2px, transparent 2px),
-        linear-gradient(-45deg, rgba(187, 134, 252, 0.1) 2px, transparent 2px),
-        linear-gradient(45deg, rgba(187, 134, 252, 0.18) 1px, transparent 1px),
-        linear-gradient(-45deg, rgba(187, 134, 252, 0.18) 1px, transparent 1px); 
-    background-size: 
-        8px 8px, 8px 8px, 
-        20px 20px, 20px 20px,
-        40px 40px, 40px 40px;
+.project-item:hover::before {
+opacity: 0.8;
+filter: brightness(1.1) contrast(1.3);
+animation: gradientShift 4s infinite alternate ease-in-out;
 }
-
-
-.project-item[data-project-id='another-app-name']::before {
-    background-image: 
-        linear-gradient(to right, rgba(187, 134, 252, 0.02) 2px, transparent 2px),
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.02) 2px, transparent 2px),
-        linear-gradient(to right, rgba(187, 134, 252, 0.06) 5px, transparent 5px),
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.06) 5px, transparent 5px),
-        linear-gradient(to right, rgba(187, 134, 252, 0.12) 2px, transparent 2px),
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.12) 2px, transparent 2px);
-    background-size: 
-        20px 20px, 20px 20px,
-        50px 50px, 50px 50px,
-        100px 100px, 100px 100px; 
-    filter: brightness(0.9) opacity(0.95);
-}
-
-
-.project-item[data-project-id='third-project']::before {
-    background-image: 
-        linear-gradient(to right, rgba(3, 218, 198, 0.04) 1px, transparent 1px), 
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.02) 1px, transparent 1px),
-        linear-gradient(to right, rgba(3, 218, 198, 0.08) 3px, transparent 3px),
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.05) 1px, transparent 1px),
-        linear-gradient(to right, rgba(3, 218, 198, 0.15) 2px, transparent 2px),
-        linear-gradient(to bottom, rgba(187, 134, 252, 0.1) 1px, transparent 1px);
-    background-size: 
-        15px 15px, 15px 15px,
-        80px 80px, 80px 80px, 
-        80px 80px, 80px 80px;
-}
-*/
-
-/* Ensure content stays above the animated background */
 .project-item .project-link {
-    position: relative;
-    z-index: 2;
-    background: var(--project-link-overlay); /* Use the theme variable */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
-    color: var(--text-on-surface);
+position: relative;
+z-index: 2;
+background: var(--project-link-overlay);
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+text-decoration: none;
+color: var(--text-on-surface);
+padding: 0;
 }
-
+.project-item .project-content {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+}
+.project-item .project-text-wrapper {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 90%;
+min-height: 170px;
+max-height: 200px;
+margin: auto;
+padding: 1.5rem;
+box-sizing: border-box;
+text-align: center;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
 .project-item h3 {
-    color: var(--project-text-initial); /* Use the initial text color variable */
-    margin-top: 0; /* Remove potential top margin */
-    margin-bottom: 0.5rem;
-    text-align: center;
-    transform: translateY(0); /* Start centered */
-    transition: transform 0.3s ease-out, color 0.3s ease-out; /* Add color transition */
+font-size: 1.5rem;
+margin: 0 0 0.8rem 0;
+padding: 0;
+font-weight: 600;
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+transition: transform var(--transition-speed-fast) var(--transition-easing),
+color var(--transition-speed-fast) var(--transition-easing);
+text-align: center;
+width: 100%;
 }
-
 .project-item p {
-    color: var(--project-text-initial); /* Use the initial text color variable */
-    font-size: 0.9rem;
-    text-align: center;
-    opacity: 0; /* Hidden by default */
-    visibility: hidden; /* Keep hidden initially */
-    max-height: 0; /* Collapse height when hidden */
-    transform: translateY(0); /* Start centered (aligned with title) */
-    /* SIMPLIFIED transition - removed visibility */
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out, max-height 0.3s ease-out, color 0.3s ease-out;
-    margin: 0;
-    overflow: hidden;
-    flex-grow: 1; 
-    /* transition: color 0.3s ease-in-out; REMOVED redundant */
+font-size: 0.9rem;
+line-height: 1.4;
+opacity: 0.75;
+color: var(--text-secondary-color, #aaa);
+width: 90%;
+margin: 0 auto;
+padding: 0;
+transition: opacity var(--transition-speed-fast) var(--transition-easing),
+transform var(--transition-speed-fast) var(--transition-easing);
+text-align: center;
+flex-grow: 1;
+display: flex;
+align-items: center;
+justify-content: center;
 }
-
-/* Text Brightening on Hover */
+.project-item:hover h3 {
+color: var(--primary-color);
+transform: translateY(-3px);
+}
+.project-item:hover p {
+opacity: 0.9;
+transform: translateY(-2px);
+}
+.project-item h3::after {
+content: '';
+display: block;
+width: 0;
+height: 2px;
+background: var(--primary-color);
+margin: 0.5rem auto 0;
+transition: width var(--transition-speed) var(--transition-easing);
+}
+.project-item:hover h3::after {
+width: 50%;
+}
+.project-item img { display: none; }
+.project-item:hover {
+box-shadow: 0 8px 20px var(--shadow-hover-color);
+}
 .project-item:hover .project-link h3,
 .project-item:hover .project-link p {
-    color: var(--text-on-surface); /* Use the main text color for hover */
-    /* Opacity for description is handled in its hover rule */
+color: var(--text-on-surface);
 }
-
-/* Re-add hover effects for text movement and description reveal */
-.project-item:hover {
-    /* Keep existing shadow */
-    box-shadow: 0 8px 20px var(--shadow-hover-color);
-    /* Other hover effects like grid fade-in are handled on ::before */
-}
-
-.project-item:hover h3 {
-    color: var(--project-text-hover); /* Brighten title text */
-    /* transform: translateY(-40px); REMOVED - Keep title centered */
-    /* transition: transform 0.3s ease-out, color 0.3s ease-out; */
-}
-
-.project-item:hover p {
-    opacity: 1;
-    visibility: visible; /* Make visible on hover */
-    max-height: 100px; /* Allow space for description */
-    /* transform: translateY(-15px); REMOVED - Let flexbox center it below title */
-}
-
-/* REMOVE Old Styles (or ensure they don't conflict) */
-/* Remove .project-item img, .project-item a button styles */
-.project-item img { display: none; } /* Hide the actual img tag */
-/* Ensure no old padding/margin conflicts */
-
-/* Contact Section */
 #contact {
-    text-align: center;
+text-align: center;
 }
-
 .social-links a {
-    display: inline-flex; /* Use flex for centering */
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 45px;
-    background-color: var(--surface-hover);
-    color: var(--primary-color);
-    border-radius: 50%;
-    margin: 0 0.5rem;
-    font-size: 1.2rem;
-    text-decoration: none;
-    /* Updated transition for bounce effect */
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+display: inline-flex;
+justify-content: center;
+align-items: center;
+width: 45px;
+height: 45px;
+background-color: var(--surface-hover);
+color: var(--primary-color);
+border-radius: 50%;
+margin: 0 0.5rem;
+font-size: 1.2rem;
+text-decoration: none;
+transition: transform var(--transition-speed-fast) cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color var(--transition-speed-fast) ease-in-out, color var(--transition-speed-fast) ease-in-out;
 }
-
 .social-links a i {
-    line-height: 1; /* Ensure icon is centered vertically */
+line-height: 1;
 }
-
 .social-links a:hover {
-    background-color: var(--primary-color);
-    color: var(--text-on-primary); /* Icon color on hover */
-    /* Keep the existing transform */
-    transform: translateY(-3px) scale(1.1);
+background-color: var(--primary-color);
+color: var(--text-on-primary);
+transform: translateY(-3px) scale(1.1);
 }
-
-/* Footer */
 footer {
-    text-align: center;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    background-color: var(--surface-color);
-    border-top: 1px solid var(--border-color);
-    font-size: 0.9rem; /* Keep slightly smaller footer text */
-    color: #aaa; /* Keep copyright text muted */
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+text-align: center;
+padding: 1.5rem;
+margin-top: 2rem;
+background-color: var(--surface-color);
+border-top: 1px solid var(--border-color);
+font-size: 0.9rem;
+color: #aaa;
+transition: background-color var(--transition-speed) ease-in-out, border-color var(--transition-speed) ease-in-out;
 }
-
-/* Basic Responsive Design */
 @media (max-width: 768px) {
-    header {
-        /* Keep padding, sticky, etc */
-        /* Remove centering forced previously */
-    }
-
-    nav {
-        /* Flex space-between works fine on mobile too */
-    }
-
-    nav ul {
-        margin: 0 auto; /* Keep centering nav links */
-        /* Remove forced justify-content: center from mobile styles */
-    }
-
-    nav ul li {
-        margin: 0 0.8rem; /* Slightly reduce spacing on mobile */
-    }
-
-    .theme-toggle-button {
-        margin-left: 1rem; /* Adjust spacing if needed */
-        font-size: 1.4rem; /* Slightly smaller icon */
-    }
-
-    section {
-        padding: 3rem 1rem;
-    }
-
-    #hero h2 {
-        font-size: 2.5rem;
-    }
-
-    #hero p {
-        font-size: 1.1rem;
-    }
-
-    #about p {
-        text-align: center; /* Center about text on mobile */
-    }
-
-    .project-grid {
-        /* Use Flexbox for centering on mobile */
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap; /* Allow wrapping if needed, though likely single item */
-        gap: 2rem; /* Re-add gap for flex context */
-        /* grid-template-columns: 1fr; Removed */
-    }
-
-    .project-item {
-        /* Give the flex item a defined width on mobile */
-        width: 100%; /* Let it fill available width */
-        max-width: 350px; /* Slightly larger max width */
-        /* Height is already set globally */
-    }
+header {
+padding: 0.75rem 1.5rem;
 }
-
-/* Enhancements for Larger Screens */
+nav ul {
+gap: 1rem;
+}
+.social-links {
+flex-wrap: wrap;
+justify-content: center;
+}
+.social-links a {
+margin: 0.5rem;
+}
+#hero h2 {
+font-size: 2.5rem;
+}
+#hero p {
+font-size: 1.1rem;
+}
+#about p {
+text-align: center;
+}
+.project-grid {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 2rem;
+}
+.project-item {
+width: 100%;
+max-width: 350px;
+}
+}
 @media (min-width: 1024px) {
-    main {
-        max-width: 1200px; /* Limit max width */
-        margin: 0 auto; /* Center the main content */
-        padding: 3rem; /* Adjust padding */
-    }
-
-    #hero {
-        padding: 8rem 2rem; /* Increase padding */
-    }
-
-    #hero h2 {
-        font-size: 3.5rem; /* Increase font size */
-    }
-
-    #hero p {
-        font-size: 1.5rem; /* Increase font size */
-    }
-
-    #about p,
-    #contact .social-links { /* Center about text and contact links */
-        max-width: 800px; /* Limit width for readability */
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center; /* Add this to center the text itself */
-    }
-
-    .project-grid {
-         /* Adjust minmax if needed for new card height/look */
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        /* justify-content: center; is inherited, no need to repeat unless changing */
-    }
-
-    nav ul li {
-        margin-left: 2.5rem; /* Slightly increase nav spacing */
-    }
+main {
+max-width: 1200px;
+margin: 0 auto;
+padding: 3rem;
 }
-
-/* Show More Button Styling */
+#hero {
+padding: 8rem 2rem;
+}
+#hero h2 {
+font-size: 3.5rem;
+}
+#hero p {
+font-size: 1.5rem;
+}
+#about p,
+#contact .social-links {
+max-width: 800px;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+.project-grid {
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+nav ul li {
+margin-left: 2.5rem;
+}
+}
+.page-transition-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: var(--bg-color);
+z-index: 9999;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+transition:
+opacity 0.3s var(--transition-easing),
+visibility 0.3s var(--transition-easing);
+}
+.page-transition-active {
+opacity: 1;
+visibility: visible;
+pointer-events: all;
+}
+.page-loader {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+border: 4px solid transparent;
+border-top-color: var(--primary-color);
+border-bottom-color: var(--secondary-color);
+animation: spinner-rotate 1s linear infinite;
+}
+@keyframes spinner-rotate {
+0% {
+transform: rotate(0deg);
+}
+100% {
+transform: rotate(360deg);
+}
+}
+.page-loader-text {
+font-size: 1.2rem;
+color: var(--text-color);
+margin-top: 20px;
+}
 .show-more-container {
-    text-align: center; /* Center the button */
-    margin-top: 2.5rem; /* Space above the button */
+text-align: center;
+margin-top: 2.5rem;
 }
-
 .show-more-button {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background-color: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 25px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease;
+display: inline-block;
+padding: 0.8rem 2rem;
+background-color: transparent;
+color: var(--primary-color);
+border: 2px solid var(--primary-color);
+border-radius: 25px;
+font-weight: bold;
+text-decoration: none;
+transition: background-color var(--transition-speed-fast) ease-in-out, color var(--transition-speed-fast) ease-in-out, transform var(--transition-speed-fast) ease;
 }
-
 .show-more-button:hover {
-    background-color: var(--primary-color);
-    color: var(--text-on-primary); /* Use text color for primary background */
-    transform: translateY(-2px);
+background-color: var(--primary-color);
+color: var(--text-on-primary);
+transform: translateY(-2px);
 }
-
-/* Style the theme toggle button */
 .theme-toggle-button {
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-size: 1.5rem; /* Adjust size as needed */
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-left: 2rem; /* Space it from nav links */
-    transition: color 0.3s ease, transform 0.3s ease;
+background: none;
+border: none;
+color: var(--primary-color);
+font-size: 1.5rem;
+cursor: pointer;
+padding: 0.5rem;
+margin-left: 2rem;
+transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
 }
-
 .theme-toggle-button i {
-    display: inline-block; 
-    transition: transform 0.4s ease-in-out; 
+display: inline-block;
+transition: transform var(--transition-speed-fast) ease-in-out;
 }
-
-/* Add class for toggling animation */
 .theme-toggle-button i.toggling {
-    transform: rotate(360deg);
+transform: rotate(360deg);
 }
-
 .theme-toggle-button:hover {
-    transform: scale(1.1) rotate(15deg);
+transform: scale(1.1) rotate(15deg);
 }
-
-
 .theme-toggle-button:hover i {
-    color: var(--icon-hover-color); 
+color: var(--icon-hover-color);
 }
-
-/* Loading Spinner */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
 }
-
 .loading-spinner {
-    border: 4px solid rgba(var(--text-color-rgb), 0.1);
-    border-left-color: var(--primary-color);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    position: absolute; /* Position within the grid */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the spinner */
-    z-index: 10; /* Ensure it's above the grid items if they render first */
-    display: none; /* Hide by default */
+border: 4px solid rgba(var(--text-color-rgb), 0.1);
+border-left-color: var(--primary-color);
+border-radius: 50%;
+width: 40px;
+height: 40px;
+animation: spin 1s linear infinite;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 10;
+display: none;
 }
-
-/* Page Fade Transitions */
 @keyframes fadeInPage {
-  from { opacity: 0; }
-  to { opacity: 1; }
+from { opacity: 0; }
+to { opacity: 1; }
 }
-
 @keyframes fadeOutPage {
-  from { opacity: 1; }
-  to { opacity: 0; }
+from { opacity: 1; }
+to { opacity: 0; }
 }
-
-/* REMOVE Wipe Transition CSS */
-/* @keyframes diagonalWipeOut { ... } */
-/* body::after { ... } */
-/* body.theme-wiping::after { ... } */ 
+@media (min-width: 1024px) {
+main {
+max-width: 1200px;
+margin: 0 auto;
+padding: 3rem;
+}
+#hero {
+padding: 8rem 2rem;
+}
+#hero h2 {
+font-size: 3.5rem;
+}
+#hero p {
+font-size: 1.5rem;
+}
+}
+.project-item .project-text-wrapper {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 100%;
+padding: 1.5rem;
+box-sizing: border-box;
+text-align: center;
+}
+.project-item .particle-canvas {
+opacity: 0;
+transition: opacity 0.5s ease-in-out;
+z-index: 1;
+}
+.project-item.active .particle-canvas {
+opacity: 0.5;
+}

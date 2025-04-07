@@ -1,107 +1,78 @@
-import * as THREE from 'three'; // Restore Three.js import
+import * as THREE from 'three'; 
 
-// Global reference for Three.js elements needed for updates
-let particleMaterial; // Make material accessible globally
-let threeRenderer; // Make renderer accessible globally for clear color update
-let currentClearAlpha = 0.1; // Adjust this value for trail length (lower = longer trails)
+let particleMaterial; 
+let threeRenderer; 
+let currentClearAlpha = 0.1;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // console.log('Portfolio website loaded.'); // DEBUG
-    // console.log("DOMContentLoaded event fired."); // DEBUG
 
-    // --- Initialize Theme Toggle Listener --- 
     const themeToggleButton = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement; // Target html element now
+    const htmlElement = document.documentElement;
     
     if (themeToggleButton) {
         const themeIcon = themeToggleButton.querySelector('i');
 
-        // Function to set the theme CLASS
-        // Renamed to avoid confusion with the initial inline script's function
         window.toggleThemeClass = () => { 
             const isCurrentlyLight = htmlElement.classList.contains('light-mode');
             const newTheme = isCurrentlyLight ? 'dark' : 'light';
             
-            // --- Add toggling class for animation ---
             if (themeIcon) {
                 themeIcon.classList.add('toggling');
             }
-            // --- End animation trigger ---
             
-            // Toggle theme class on HTML element
             htmlElement.classList.toggle('light-mode', !isCurrentlyLight);
             
-            // Update button icon AFTER class change
             if (themeIcon) { 
                 themeIcon.classList.toggle('fa-sun', isCurrentlyLight);
                 themeIcon.classList.toggle('fa-moon', !isCurrentlyLight);
                 
-                // Remove toggling class after animation duration
                 setTimeout(() => {
                     themeIcon.classList.remove('toggling');
-                }, 400); // Match CSS transition duration (0.4s)
+                }, 400);
             }
             
-            // Save preference
             localStorage.setItem('theme', newTheme);
             console.log(`Theme toggled to: ${newTheme}`);
 
-            // Update Particle Color
             const newParticleColor = getComputedStyle(htmlElement).getPropertyValue('--particle-color').trim();
             if (particleMaterial) {
                  particleMaterial.color.set(newParticleColor || (newTheme === 'light' ? '#000000' : '#ffffff'));
             }
 
-            // --- Update Clear Color on theme change ---
             updateClearColor(); 
         };
 
-        // Update icon on initial load based on class set by inline script
         const initialThemeIsLight = htmlElement.classList.contains('light-mode');
         if (themeIcon) {
             themeIcon.classList.toggle('fa-sun', !initialThemeIsLight);
             themeIcon.classList.toggle('fa-moon', initialThemeIsLight);
         }
 
-        // Add event listener for the toggle button
         themeToggleButton.addEventListener('click', window.toggleThemeClass);
-        
-        // console.log("Theme toggle listener initialized."); // DEBUG
+
     } else {
         console.error("Theme toggle button #theme-toggle not found!");
     }
-    // --- End Theme Toggle Listener Init ---
 
-    // Smooth scrolling for navigation links
     setupSmoothScrolling();
 
-    // Add subtle animations on scroll (optional)
     setupScrollAnimations();
 
-    // Initialize 3D Visual Effects (if enabled)
     const visualContainer = document.getElementById('visual-effect-container');
     if (visualContainer && typeof initThreeJSBackground === 'function') { 
-        // console.log('Initializing 3D background effect...'); // DEBUG
         initThreeJSBackground(visualContainer);
     }
 
-    // Check if project elements exist BEFORE fetching
     const projectGridCheck = document.querySelector('.project-grid');
     const projectsSectionCheck = document.getElementById('projects');
     if (projectGridCheck && projectsSectionCheck) {
-        // console.log("Project containers found just before fetch call."); // DEBUG
-        fetchAndDisplayGitHubProjects(); // Fetch projects only if containers exist
+        fetchAndDisplayGitHubProjects();
     } else {
-        console.error("CRITICAL: Project containers not found after DOMContentLoaded."); // Keep critical
+        console.error("CRITICAL: Project containers not found after DOMContentLoaded."); 
     }
     
-    // Initial setup for effects - might be called again after fetch
     setupProjectCardEffects();
 
-    // console.log("Finished initializing scripts in DOMContentLoaded."); // DEBUG
-
-    // --- Initialize Page Transition Listener ---
-    document.addEventListener('click', handlePageTransition);
 });
 
 function setupSmoothScrolling() {
@@ -120,218 +91,370 @@ function setupSmoothScrolling() {
 function setupScrollAnimations() {
     const sections = document.querySelectorAll('section');
     const observerOptions = {
-        root: null, // relative to document viewport
-        rootMargin: '0px',
-        threshold: 0.15 // Trigger slightly later
+        root: null, 
+        rootMargin: '0px', 
+        threshold: 0.1 
     };
 
+    const getStaggerDelay = (index) => {
+        return `${0.1 + (index * 0.1)}s`;
+    };
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
+                const delay = entry.target.dataset.animationDelay || '0s';
+                
+                entry.target.style.transitionDelay = delay;
                 entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) translateX(0)'; // Reset transforms
-                entry.target.style.filter = 'blur(0)'; // Reset blur
-                // Optional: unobserve after animation
-                 observer.unobserve(entry.target);
+                entry.target.style.transform = 'translateY(0) translateX(0)'; 
+                entry.target.style.filter = 'blur(0)'; 
+                
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
     sections.forEach((section, index) => {
-        // Initial state for animation
-        section.style.opacity = '0';
-        // Alternate slide-in direction (optional)
-        // const slideDirection = index % 2 === 0 ? '-50px' : '50px';
-        // section.style.transform = `translateX(${slideDirection})`;
+        if (prefersReducedMotion) {
+            section.style.opacity = '1';
+            section.style.transform = 'none';
+            section.style.filter = 'none';
+            return; 
+        }
 
-        // Slide-up effect
-        section.style.transform = 'translateY(50px)';
-        section.style.filter = 'blur(5px)'; // Add a blur effect
+        section.style.opacity = '0';
+        
+        section.dataset.animationDelay = getStaggerDelay(index);
+        
+        section.style.transform = 'translateY(30px)';
+        section.style.filter = 'blur(3px)';
+        
+        section.style.transition = `
+            opacity var(--transition-speed-slow) var(--transition-easing),
+            transform var(--transition-speed-slow) var(--transition-easing),
+            filter var(--transition-speed) var(--transition-easing),
+            background-color var(--transition-speed) var(--transition-easing),
+            box-shadow var(--transition-speed) var(--transition-easing)
+        `;
 
         observer.observe(section);
     });
+    
+    const setupProjectCardAnimations = () => {
+        const projectCards = document.querySelectorAll('.project-item');
+        projectCards.forEach((card, index) => {
+            if (prefersReducedMotion) {
+                card.style.opacity = '1';
+                return;
+            }
+            
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            card.style.transition = `
+                opacity var(--transition-speed) var(--transition-easing),
+                transform var(--transition-speed) var(--transition-easing)
+            `;
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 + (index * 50)); 
+        });
+    };
+    
+    const originalSetupProjectCardEffects = window.setupProjectCardEffects || setupProjectCardEffects;
+    window.setupProjectCardEffects = function() {
+        originalSetupProjectCardEffects();
+        setupProjectCardAnimations();
+    };
 }
 
-// Restore the entire initThreeJSBackground function
 
 function initThreeJSBackground(container) {
-    let scene, camera, /*renderer,*/ particles, particleSystem; // renderer is now global
-    const particleCount = 5000;
+    let scene, camera, /*renderer,*/ particles, particleSystem; 
+    const particleCount = window.innerWidth < 768 ? 2500 : 5000; 
     const mouse = new THREE.Vector2();
+    let frameCount = 0;
+    const frameSkip = 1;
 
-    // Scene
     scene = new THREE.Scene();
 
-    // Camera
     camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-    camera.position.z = 50; // Adjust based on particle spread
+    camera.position.z = 50;
 
-    // Renderer
-    threeRenderer = new THREE.WebGLRenderer({ alpha: true });
+    threeRenderer = new THREE.WebGLRenderer({ 
+        alpha: true,
+        powerPreference: 'high-performance',
+        antialias: false 
+    });
     threeRenderer.setSize(container.offsetWidth, container.offsetHeight);
-    threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    threeRenderer.autoClear = false; // <-- Disable auto clear
+    threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); 
+    threeRenderer.autoClear = false; 
     container.appendChild(threeRenderer.domElement);
 
-    // Particles
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 500; // Adjust spread
+        positions[i] = (Math.random() - 0.5) * 500; 
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    // Read initial particle color from CSS variable
     const initialParticleColor = getComputedStyle(document.documentElement)
                                   .getPropertyValue('--particle-color').trim();
 
-    // Assign to global material variable
+ 
     particleMaterial = new THREE.PointsMaterial({
-        color: new THREE.Color(initialParticleColor || '#ffffff'), // Use fetched color or default
-        size: 0.4, // Reduced size
+        color: new THREE.Color(initialParticleColor || '#ffffff'), 
+        size: 0.4,
         transparent: true,
-        opacity: 0.5, // Reduced opacity
+        opacity: 0.5,
         sizeAttenuation: true
     });
 
     particleSystem = new THREE.Points(geometry, particleMaterial);
     scene.add(particleSystem);
 
-    // --- Set initial clear color ---
+  
     updateClearColor(); 
 
-    // Mouse move listener
-    document.addEventListener('mousemove', onMouseMove, false);
-
-    // Animation Loop
+    let mouseMoveTimeout;
+    document.addEventListener('mousemove', (event) => {
+        if (mouseMoveTimeout) return;
+        
+        mouseMoveTimeout = setTimeout(() => {
+            onMouseMove(event);
+            mouseMoveTimeout = null;
+        }, 10); 
+    }, { passive: true }); 
     function animate() {
         requestAnimationFrame(animate);
 
-        // --- Manual Clear with Low Alpha --- 
-        threeRenderer.clear(); // Clear depth/stencil buffer
-        // Set clear color with transparency just before rendering this frame
-        // The actual background color comes from CSS, this clear creates the trail
-        // We assume the CSS variables are already set correctly for the current theme
-        // (updateClearColor function ensures threeRenderer clear color matches)
-        // No need to setClearColor here every frame if updated on theme change
+        frameCount++;
+        if (frameCount % frameSkip !== 0) return;
+ 
+        threeRenderer.clear();
 
-        // Subtle rotation for background movement
         if (particleSystem) {
-            particleSystem.rotation.x += 0.0001;
-            particleSystem.rotation.y += 0.0002;
+            particleSystem.rotation.x += 0.00005;
+            particleSystem.rotation.y += 0.0001;
         }
 
-        // Make particles react slightly to mouse (parallax by moving camera) - Reduced effect
-        const mouseEffectStrength = 5; // Reduced from 10
-        const lerpFactor = 0.02;
+       
+        const mouseEffectStrength = 5; 
+        const lerpFactor = 0.01;
         camera.position.x += (mouse.x * mouseEffectStrength - camera.position.x) * lerpFactor;
         camera.position.y += (-mouse.y * mouseEffectStrength - camera.position.y) * lerpFactor;
-        camera.lookAt(scene.position); // Keep camera focused on the center
+        camera.lookAt(scene.position);
 
         threeRenderer.render(scene, camera);
     }
 
-    // Handle mouse movement
     function onMouseMove(event) {
-        // Normalize mouse coordinates (-1 to +1)
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
 
-    // Handle window resize
     function onWindowResize() {
         if (!container) return;
+        
+        if (window.innerWidth < 768 && particleSystem && particleSystem.geometry.attributes.position.count > 2500) {
+            scene.remove(particleSystem);
+            const newGeometry = new THREE.BufferGeometry();
+            const newPositions = new Float32Array(2500 * 3);
+            
+            for (let i = 0; i < 2500 * 3; i++) {
+                newPositions[i] = (Math.random() - 0.5) * 500;
+            }
+            
+            newGeometry.setAttribute('position', new THREE.BufferAttribute(newPositions, 3));
+            particleSystem = new THREE.Points(newGeometry, particleMaterial);
+            scene.add(particleSystem);
+        }
+        
         camera.aspect = container.offsetWidth / container.offsetHeight;
         camera.updateProjectionMatrix();
         threeRenderer.setSize(container.offsetWidth, container.offsetHeight);
-        threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Update pixel ratio on resize
-        // Also update clear color on resize in case theme changed while hidden
+        threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); 
         updateClearColor(); 
     }
 
-    window.addEventListener('resize', onWindowResize, false);
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(onWindowResize, 100);
+    }, false);
 
-    // Start animation
     animate();
-
-    console.log('Three.js background initialized with initial particle color:', initialParticleColor);
 }
 
-// --- Function to update the renderer clear color based on CSS variables ---
 function updateClearColor() {
-    if (!threeRenderer) return; // Don't run if renderer not initialized
-
+    if (!threeRenderer) return; 
     const computedStyle = getComputedStyle(document.documentElement);
-    const bgColor = computedStyle.getPropertyValue('--bg-color').trim(); // Get the actual RGBA string
+    const bgColor = computedStyle.getPropertyValue('--bg-color').trim(); 
     
     try {
-        // Use the existing bg color variable which has alpha
-        threeRenderer.setClearColor(bgColor, 1); // Set clear color but clear alpha is handled differently
-        
-        // We actually control the 'trail' by how much we clear the *color* buffer.
-        // We clear depth/stencil fully, but only clear color slightly.
-        // This seems complex, let's simplify: we'll use a transparent plane instead.
+        threeRenderer.setClearColor(bgColor, 1); 
         console.warn("Trail effect via clearAlpha is complex; consider a transparent plane or post-processing.");
-        // Re-enabling autoClear for simplicity for now.
         threeRenderer.autoClear = true; 
         
     } catch (e) {
         console.error("Error setting clear color:", e, "bgColor was:", bgColor);
-        // Fallback clear color
+        
         const isLight = document.documentElement.classList.contains('light-mode');
         threeRenderer.setClearColor(isLight ? 0xf8f9fa : 0x121212, 1);
     }
 }
 
-// NEW Function Renamed for 3D Tilt and Parallax
 function setupProjectCardEffects() {
     const projectItems = document.querySelectorAll('.project-item');
     if (!projectItems || projectItems.length === 0) {
-        // console.log("setupProjectCardEffects: No project items found yet."); // DEBUG - Normal if called before fetch
         return;
     }
-    const parallaxIntensity = 12; // Intensity for blocky background shift
+    
+    
+    const parallaxIntensity = 12; 
+    
+    const debounce = (func, wait) => {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
 
     projectItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            // item.classList.add('is-hovered'); // No longer needed for highlight
-        });
-
-        item.addEventListener('mousemove', (e) => {
+        createParticleEffect(item);
+        
+        
+        const handleMouseMove = debounce((e) => {
             const rect = item.getBoundingClientRect();
 
-            // Calculate grid offsets based on center
             const xCenter = e.clientX - rect.left - rect.width / 2;
             const yCenter = e.clientY - rect.top - rect.height / 2;
             const offsetXPercent = xCenter / rect.width;
             const offsetYPercent = yCenter / rect.height;
+            
             const bgOffsetX = -offsetXPercent * parallaxIntensity;
             const bgOffsetY = -offsetYPercent * parallaxIntensity;
 
-            // Removed calculation and setting of --mouse-x, --mouse-y
-
-            // Apply styles using CSS custom properties (only parallax offset)
             item.style.setProperty('--bg-offset-x', `${bgOffsetX}px`);
             item.style.setProperty('--bg-offset-y', `${bgOffsetY}px`);
-        });
+            
+            const tiltAmount = 5; 
+            const tiltX = offsetYPercent * tiltAmount;
+            const tiltY = -offsetXPercent * tiltAmount;
+            
+            item.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        }, 10); 
+
+        item.addEventListener('mouseenter', () => {
+       
+            item.style.transition = `transform var(--transition-speed-fast) ${getComputedStyle(document.documentElement).getPropertyValue('--transition-easing')}`;
+            item.classList.add('active');
+        }, { passive: true });
+
+        item.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         item.addEventListener('mouseleave', () => {
-            // item.classList.remove('is-hovered'); // No longer needed for highlight
-            // Reset grid offset - CSS transition on ::before handles visual reset
-            // We can reset the value instantly though
             item.style.setProperty('--bg-offset-x', '0px');
             item.style.setProperty('--bg-offset-y', '0px');
-        });
+            item.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            item.classList.remove('active');
+        }, { passive: true });
     });
-    // console.log("Project card effects setup: Grid Parallax Active."); // DEBUG
 }
 
-// --- GitHub Project Fetching ---
+function createParticleEffect(cardElement) {
+    let canvas = cardElement.querySelector('.particle-canvas');
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.className = 'particle-canvas';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '1';
+        canvas.style.opacity = '0';
+        canvas.style.transition = 'opacity var(--transition-speed) ease-in-out';
+        cardElement.insertBefore(canvas, cardElement.firstChild);
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            initializeParticles(canvas, cardElement);
+        }
+    }
+}
+
+function initializeParticles(canvas, parentElement) {
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    const particleCount = 30;
+    function resizeCanvas() {
+        canvas.width = parentElement.offsetWidth;
+        canvas.height = parentElement.offsetHeight;
+    }
+    function initParticles() {
+        particles.length = 0;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 3 + 1,
+                speedX: Math.random() * 0.5 - 0.25,
+                speedY: Math.random() * 0.5 - 0.25,
+                opacity: Math.random() * 0.5 + 0.1
+            });
+        }
+    }
+    
+    function animate() {
+        if (!canvas.isConnected) return; 
+    
+        if (parentElement.classList.contains('active')) {
+            canvas.style.opacity = '1';
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const primaryColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--primary-color').trim();
+            
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.globalAlpha = p.opacity;
+                ctx.fillStyle = primaryColor;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        } else {
+            canvas.style.opacity = '0';
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    resizeCanvas();
+    initParticles();
+    animate();
+    
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles();
+    }, { passive: true });
+}
+
 
 async function fetchAndDisplayGitHubProjects() {
-    // console.log("Attempting to run fetchAndDisplayGitHubProjects..."); // DEBUG
+   
     const username = 'ASHRREAL';
     const isOnProjectsPage = window.location.pathname.includes('projects.html');
     const perPageCount = isOnProjectsPage ? 100 : 10;
@@ -340,38 +463,32 @@ async function fetchAndDisplayGitHubProjects() {
     const projectsSection = document.getElementById('projects');
 
     if (!projectGrid || !projectsSection) {
-        console.error('CRITICAL: Project grid or section not found.'); // Keep critical
+        console.error('CRITICAL: Project grid or section not found.');
         return;
     }
-    // console.log(`Fetching projects for ${username} (Page: ${isOnProjectsPage ? 'All Projects' : 'Index'})...`); // DEBUG
-
-    // Clear any previous button (only relevant for index page)
     if (!isOnProjectsPage) {
         const existingButtonContainer = projectsSection.querySelector('.show-more-container');
         if (existingButtonContainer) {
             existingButtonContainer.remove();
         }
     }
-
-    // Show loading spinner instead of text
     projectGrid.innerHTML = '<div class="loading-spinner"></div>';
     console.log(`Fetching projects for ${username}...`);
 
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-            // Try to get more info from response if possible
             let errorText = response.statusText;
             try { 
                 const errorData = await response.json();
                 errorText += ` - ${errorData.message || 'No additional message.'}`;
-            } catch (e) { /* Ignore if response body isn't JSON */ }
+            } catch (e) {  }
             throw new Error(`GitHub API error: ${response.status} ${errorText}`);
         }
         const repos = await response.json();
 
-        // console.log(`Found ${repos.length} repositories.`); // DEBUG
-        projectGrid.innerHTML = ''; // Clear loading message
+
+        projectGrid.innerHTML = '';
 
         if (repos.length === 0) {
             projectGrid.innerHTML = '<p>No public projects found on GitHub.</p>';
@@ -379,33 +496,30 @@ async function fetchAndDisplayGitHubProjects() {
         }
 
         let displayCount = 0;
-        // Set maxDisplay based on the page
-        const maxDisplay = isOnProjectsPage ? repos.length : 2; // Show all on projects page, 2 on index
+        const maxDisplay = isOnProjectsPage ? repos.length : 2; 
 
         repos.forEach(repo => {
             if (displayCount >= maxDisplay) {
-                 if (!isOnProjectsPage) return; // Stop adding on index page only
-                 // On projects page, we let it continue to process all fetched repos
+                 if (!isOnProjectsPage) return;
             }
-
-            // Skip forks if desired
-            // if (repo.fork) return;
-
-            // --- Create Project Item HTML (same as before) ---
             const projectName = repo.name;
             const projectDesc = repo.description || 'No description provided.';
             const projectUrl = repo.html_url;
             const projectId = repo.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             const maxLength = 100;
             let displayDesc = projectDesc;
-            if (!isOnProjectsPage && projectDesc.length > maxLength) { // Only truncate on index page
+            if (!isOnProjectsPage && projectDesc.length > maxLength) { 
                 displayDesc = projectDesc.substring(0, maxLength).trim() + '...';
             }
             const projectItemHTML = `
                 <div class="project-item" data-project-id="${projectId}">
                     <a href="${projectUrl}" target="_blank" rel="noopener noreferrer" class="project-link">
-                        <h3>${projectName}</h3>
-                        <p title="${projectDesc}">${displayDesc}</p>
+                        <div class="project-content">
+                            <div class="project-text-wrapper">
+                                <h3>${projectName}</h3>
+                                <p title="${projectDesc}">${displayDesc}</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
             `;
@@ -413,80 +527,107 @@ async function fetchAndDisplayGitHubProjects() {
             displayCount++;
         });
 
-        // Re-apply JS effects
         setupProjectCardEffects();
-        // console.log(`Displayed ${displayCount} projects.`); // DEBUG
 
-        // Add "Show More" button only on the index page if needed
         if (!isOnProjectsPage && repos.length > maxDisplay) {
-            // console.log("More projects available, adding 'Show More' button."); // DEBUG
             const buttonHTML = `
                 <div class="show-more-container" style="text-align: center; margin-top: 2rem;">
                     <a href="projects.html" class="show-more-button">Show More Projects</a>
                 </div>
             `;
-            // Ensure button container doesn't exist before adding
             if (!projectsSection.querySelector('.show-more-container')) {
                  projectsSection.insertAdjacentHTML('beforeend', buttonHTML);
             }
         }
 
     } catch (error) {
-        console.error('Error fetching/displaying GitHub projects:', error); // Keep important error
-        // Provide a slightly more user-friendly error message
+        console.error('Error fetching/displaying GitHub projects:', error); 
         projectGrid.innerHTML = '<p class="error-message">Could not load projects. Check console for details.</p>';
     }
 }
-
-// --- Page Transition Handler ---
-function handlePageTransition(event) {
-    // Find the nearest anchor tag ancestor
-    const link = event.target.closest('a');
-
-    // Check if it's a valid internal link
-    if (link && link.href && link.target !== '_blank' && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
-        // Exclude links within project cards for now, as they don't navigate away
-        if (link.closest('.project-item')) {
+function setupPageTransitions() {
+    if (!document.querySelector('.page-transition-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'page-transition-overlay';
+        
+        const loader = document.createElement('div');
+        loader.className = 'page-loader';
+        
+        const loaderText = document.createElement('div');
+        loaderText.className = 'page-loader-text';
+        loaderText.textContent = 'Loading...';
+        
+        overlay.appendChild(loader);
+        overlay.appendChild(loaderText);
+        document.body.appendChild(overlay);
+    }
+    
+    const transitionOverlay = document.querySelector('.page-transition-overlay');
+    
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        
+        const url = link.getAttribute('href');
+        if (!url || url.startsWith('#') || url.startsWith('http') || url.startsWith('mailto')) {
             return;
         }
-        
-        // Prevent immediate navigation
-        event.preventDefault();
-        
-        // Get the destination URL
-        const destination = link.href;
-        
-        // Add fade-out class to body
-        document.body.classList.add('fade-out');
-        
-        // Wait for animation to finish, then navigate
+        e.preventDefault();
+        transitionOverlay.classList.add('page-transition-active');
+        const loaderText = transitionOverlay.querySelector('.page-loader-text');
+        if (url.includes('index.html')) {
+            loaderText.textContent = 'Going Home...';
+        } else if (url.includes('projects')) {
+            loaderText.textContent = 'Loading Projects...';
+        } else {
+            loaderText.textContent = 'Loading...';
+        }
         setTimeout(() => {
-            window.location.href = destination;
-        }, 300); // Match CSS animation duration (0.3s)
+            window.location.href = url;
+        }, 500);
+    });
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            transitionOverlay.classList.remove('page-transition-active');
+        }
+    });
+    
+    window.addEventListener('load', () => {
+        transitionOverlay.classList.remove('page-transition-active');
+    });
+}
+function initializeWebsite() {
+    setupThemeToggle();
+    setupProjectCardEffects();
+    setupScrollAnimations();
+    setupPageTransitions(); 
+
+    
+    loadProjects();
+    const container = document.getElementById('visual-effect-container');
+    if (container) {
+        initThreeJSBackground(container);
     }
 }
+document.addEventListener('DOMContentLoaded', initializeWebsite);
 
 function loadProjects() {
     const projectGrid = document.querySelector('.project-grid');
     const loadingSpinner = projectGrid ? projectGrid.querySelector('.loading-spinner') : null;
     const showMoreContainer = document.querySelector('.show-more-container');
     const isProjectsPage = document.body.classList.contains('projects-page');
-    const limit = isProjectsPage ? 100 : 2; // Show 100 on projects page, 2 on index
+    const limit = isProjectsPage ? 100 : 2;
 
     if (!projectGrid) {
         console.error('Project grid container not found.');
         return;
     }
 
-    // Show spinner before fetching
     if (loadingSpinner) {
         loadingSpinner.style.display = 'block';
     }
-    // Clear existing projects immediately (optional, prevents seeing old projects briefly)
-    // projectGrid.innerHTML = ''; // Keep spinner if we do this
-    // if(loadingSpinner) projectGrid.appendChild(loadingSpinner);
-
-    const username = 'FelipeTurra'; // Replace with your GitHub username
+    
+    const username = 'ASHRREAL'; 
     const apiUrl = `https://api.github.com/users/${username}/repos?sort=updated&direction=desc`;
 
     fetch(apiUrl)
@@ -497,8 +638,8 @@ function loadProjects() {
             return response.json();
         })
         .then(repos => {
-            projectGrid.innerHTML = ''; // Clear grid *before* adding new items (keeps spinner if fetch is fast)
-            if (loadingSpinner) projectGrid.appendChild(loadingSpinner); // Re-add spinner after clearing
+            projectGrid.innerHTML = '';
+            if (loadingSpinner) projectGrid.appendChild(loadingSpinner); 
 
             const sortedRepos = repos.filter(repo => !repo.fork).sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
             const reposToDisplay = sortedRepos.slice(0, limit);
@@ -508,20 +649,16 @@ function loadProjects() {
                 const projectItem = createProjectCard(repo);
                 projectGrid.appendChild(projectItem);
             });
-
-            // Setup effects after cards are added
             setupProjectCardEffects();
-
-            // Add 'Show More' button on index page if needed
             if (!isProjectsPage && remainingReposCount > 0 && showMoreContainer) {
-                showMoreContainer.innerHTML = ''; // Clear previous button if any
+                showMoreContainer.innerHTML = '';
                 const showMoreButton = document.createElement('a');
                 showMoreButton.href = 'projects.html';
-                showMoreButton.classList.add('button'); // Use existing button style
+                showMoreButton.classList.add('button'); 
                 showMoreButton.textContent = `Show All ${sortedRepos.length} Projects`;
                 showMoreContainer.appendChild(showMoreButton);
             } else if (showMoreContainer) {
-                showMoreContainer.innerHTML = ''; // Ensure it's empty on projects page or if no more repos
+                showMoreContainer.innerHTML = ''; 
             }
 
         })
@@ -530,7 +667,6 @@ function loadProjects() {
             projectGrid.innerHTML = '<p class="error-message">Failed to load projects. Please check the console for details.</p>'; // Show error message
         })
         .finally(() => {
-            // Hide spinner after fetch completes (success or error)
             if (loadingSpinner) {
                 loadingSpinner.style.display = 'none';
             }
