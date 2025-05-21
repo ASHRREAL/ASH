@@ -101,6 +101,46 @@ html.light-mode {
 --bg-color-rgb: var(--bg-color-light-rgb);
 --icon-hover-color: var(--icon-hover-color-light);
 }
+
+html.light-mode body {
+  opacity: 1;
+}
+
+html.light-mode header {
+  background: rgba(248, 249, 250, 0.85);
+  opacity: 1;
+}
+
+html.light-mode main {
+  background: rgba(255, 255, 255, 0.85);
+  opacity: 1;
+}
+
+html.light-mode section {
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+
+html.light-mode footer {
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+
+html.light-mode .project-item {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+html.light-mode .social-links a {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+html.light-mode #hero {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
 html {
   scroll-behavior: smooth;
 }
